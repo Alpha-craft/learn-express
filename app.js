@@ -18,6 +18,11 @@ app.get('/home',(req,res)=>{
   res.sendFile('./index.html',{root: __dirname})
 })
 
+app.get('/post/:id/:cat',(req,res ) => {
+  res.send(`Post ID: ${req.params.id}<br>CatID:${req.params.cat}`)
+  console.log(req.params)
+});
+
 app.get('/api',(req,res)=>{
   res.json({
     nama: 'Ainurahman',
