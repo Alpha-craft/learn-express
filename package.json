@@ -1,0 +1,25 @@
+{
+  "name": "latihan-express",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alpha-craft",
+  "license": "ISC",
+  "description": "Ini adalah latihan",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alpha-craft/learn-express.git"
+  },
+  "keywords": [
+    "async"
+  ],
+  "bugs": {
+    "url": "https://github.com/Alpha-craft/learn-express/issues"
+  },
+  "homepage": "https://github.com/Alpha-craft/learn-express#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
