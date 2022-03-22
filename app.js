@@ -2,20 +2,45 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+//menggunakan EJS
+app.set('view engine','ejs');
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
 app.get('/about',(req,res) => {
   res.send('ini adalah halaman about');
-})
+})         
 
 app.get('/post',(req,res) => {
-  res.send("ini adalah halaman post")
+  let jumlah = req.query.jumlah
+  // res.send("ini adalah halaman post")
+  res.render('post',{jumlah:jumlah});
 })
 
 app.get('/home',(req,res)=>{
-  res.sendFile('./index.html',{root: __dirname})
+  const dataSiswa = [
+    {
+      nama:"Alpha",
+      kelas:"XII-SIJA",
+      noAbsen:1
+    },
+    {
+      nama:"Bravo",
+      kelas:"XII-SIJA",
+      noAbsen:2
+    },
+    {
+      nama:"Charlie",
+      kelas:"XII-SIJA",
+      noAbsen:3
+    },
+  ]
+  // res.sendFile('./index.html',{root: __dirname})
+  res.render('index',{
+    dataSiswa:dataSiswa
+  });
 })
 
 app.get('/post/:id/:cat',(req,res ) => {
