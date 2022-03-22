@@ -23,6 +23,12 @@ app.get('/post/:id/:cat',(req,res ) => {
   console.log(req.params)
 });
 
+app.get('/query',(req,res) => {
+  let q = req.query.q;
+  res.send(`Isi Query adalah: ${q}`);
+  console.log(req.query);
+});
+
 app.get('/api',(req,res)=>{
   res.json({
     nama: 'Ainurahman',
