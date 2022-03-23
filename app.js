@@ -1,22 +1,38 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const path = require('path');
+const expressLayout = require('express-ejs-layouts');
+
 
 //menggunakan EJS
 app.set('view engine','ejs');
+
+app.use(express.static(path.join(__dirname,'bootstrap')))
+app.use(expressLayout)
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/about',(req,res) => {
-  res.send('ini adalah halaman about');
-})         
 
 app.get('/post',(req,res) => {
   let jumlah = req.query.jumlah
   // res.send("ini adalah halaman post")
-  res.render('post',{jumlah:jumlah});
+  res.render('post',{
+    jumlah:jumlah,
+    title:'ini adalah halaman post',
+    layout:'layouts/main-layouts'
+  });
+})
+
+app.get('/about',(req,res) => {
+  let tentang = req.params.tentang
+  res.render('about',{
+    title:'About',
+    tentang,
+    layout:'layouts/main-layouts'
+  })
 })
 
 app.get('/home',(req,res)=>{
@@ -39,7 +55,9 @@ app.get('/home',(req,res)=>{
   ]
   // res.sendFile('./index.html',{root: __dirname})
   res.render('index',{
-    dataSiswa:dataSiswa
+    dataSiswa:dataSiswa,
+    layout:'layouts/main-layouts',
+    title:'ini adalah home'
   });
 })
 
