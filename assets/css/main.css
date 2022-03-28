@@ -15,6 +15,9 @@ body{
 .bg-exam{
   background-color: rgb(71, 197, 255);
 }
+.bg-dark-lt{
+  background-color: rgba(55, 55, 55, 0.3);
+}
 .border-exam-side{
   border-left: 4px solid rgb(71, 197, 255);  
   padding-left: 10px;

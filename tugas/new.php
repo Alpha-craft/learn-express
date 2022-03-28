@@ -1,7 +1,7 @@
 <?php 
   require __DIR__.'/../dist/database.php';
 
-  if(isset($_POST['confirm'])){
+  if(isset($_POST['submit'])){
     $timenow = date("H:i:s");
 
     $title = $_POST['title'];
@@ -32,40 +32,8 @@
     include __DIR__.'/../components/card_alert.php'; 
   ?>
 <?php else: ?>
-
-  <!-- Modal -->
-  <div class="modal fade" id="modalUpload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalUpload" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <form method="POST" enctype="multipart/form-data" x-data="fileUploader()">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalUpload">Pilih File Attachment</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-4">
-              <label for="uploadFiles" class="form-label">Upload Attachment</label>
-              <input name="files[]" type="file" x-on:input="uploadFile()" id="uploadFiles" class="form-control form-control-sm" multiple>
-            </div>                      
-
-            <hr>
-            
-            <div class="my-4">
-              <h5>File yang anda upload:</h5>
-              <div class="d-flex flex-column" id="listFile">
-
-              </div>          
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" x-on:click="submitFiles()" data-bs-dismiss="modal">Submit</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
+  <?php include __DIR__.'/../components/modal_upload.php'; ?>
+  
   <div class="card">
     <div class="card-body">
       <form method="POST">
@@ -106,13 +74,13 @@
 
         <div class="mb-3">
           <div class="form-label">File Attachment</div>
-          <div class="row">
-            <div class="col">
+          <div class="d-flex mb-2">
+            <div class="me-3">
               <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#modalUpload">
-              Pilih file
+                Pilih file
               </button>
             </div>
-            <div class="col-auto" id="fileLength">
+            <div id="fileLength">
 
             </div>
           </div>        
@@ -124,7 +92,7 @@
         <input type="hidden" name="attId" id="attachment">
 
         <div class="mt-4">
-          <button type="submit" name="confirm" class="mt-5 btn btn-primary">
+          <button type="submit" name="submit" class="mt-5 btn btn-primary">
             Buat Tugas
           </button>
         </div>      
@@ -141,102 +109,7 @@
     let endDate = new Pikaday({ 
       field: document.getElementById('endDate'),
       format: 'YYYY-MM-DD'
-    });  
-
-    function fileUploader(){
-      return {
-        uploadFile() {
-          let notyf = new Notyf();
-          let files = document.getElementById("uploadFiles").files;
-
-          if (files.length > 0){
-            let data = new FormData();
-            let request = new XMLHttpRequest();
-
-            for(var i = 0; i < files.length; ++i){
-              data.append('files[]', files[i]);
-            }
-
-            request.open("POST", "/ajax/upload_file.php", true);
-            request.setRequestHeader('Cache-Control','no-cache');
-
-            request.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {              
-                notyf.success('File anda berhasil ter-upload!');              
-              }
-            };
-            
-            request.send(data);          
-          } else{
-            notyf.error("Tolong pilih file untuk diupload");
-          }
-
-          this.getFiles();
-        },
-        submitFiles(){
-          let checkboxs = document.getElementsByClassName('checkbox-file');
-          let fileNames = document.getElementsByClassName('checkbox-label');
-          let attIds = '';
-          let selectedFiles = '';
-
-          for(let i = 0; i < checkboxs.length; i++){
-            if(checkboxs[i].checked){
-              attIds += checkboxs[i].value + ',';
-              selectedFiles += `<div class="mb-2">${ fileNames[i].innerHTML }</div>`
-            }          
-          }
-
-          if(attIds != ''){
-            let ids = attIds.slice(0, -1);
-
-            document.getElementById('attachment').value = ids;
-            document.getElementById('selectedFiles').innerHTML = selectedFiles;
-            document.getElementById('fileLength').innerHTML = ids.split(',').length + ' File'
-          }        
-        },
-        getFiles(){
-          let xmlhttp = null;
-
-          if (window.XMLHttpRequest){
-            xmlhttp = new XMLHttpRequest();
-          }
-          else{
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-
-          xmlhttp.onreadystatechange = function(){
-            if (xmlhttp.readyState == 4){
-              document.getElementById("listFile").innerHTML = xmlhttp.responseText;
-            }          
-          }
-
-          xmlhttp.open("GET", "/ajax/list_file.php", true);
-          xmlhttp.send();
-        },
-        getDatepicker(){
-          const getDatePickerTitle = elem => {
-            const label = elem.nextElementSibling;
-            let titleText = '';
-            if (label && label.tagName === 'LABEL') {
-              titleText = label.textContent;
-            } else {
-              titleText = elem.getAttribute('aria-label') || '';
-            }
-            return titleText;
-          }
-
-          const elems = document.getElementById('datepicker');
-          for (const elem of elems) {
-            const datepicker = new Datepicker(elem, {
-              format: 'dd-mm-yyyy',
-              title: ''
-            });
-          }     
-        }
-      }
-    }  
-
-    window.onload = fileUploader().getFiles();
+    });      
   </script>
 <?php endif; ?>
 

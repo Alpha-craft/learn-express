@@ -46,7 +46,7 @@
           </button>
         </div>        
       </div>
-      <div class="sidenav sidenav-body py-3" style="overflow-y: scroll;">
+      <div class="sidenav sidenav-body pt-3 pb-5" style="overflow-y: scroll;">
         <?php foreach($sidebar as $sub): ?>
           <a class="d-flex no-hover mt-3">
             <div class="icon"></div>

@@ -24,7 +24,7 @@ if(isset($_FILES['files']['name'])){
     mysqli_query($conn, "INSERT INTO attachment(id, file, author, date_created) VALUES$insert");   
   }
   
-  return $response;
+  echo $response;
   exit();
 }
 ?>

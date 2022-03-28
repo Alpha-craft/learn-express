@@ -1,7 +1,7 @@
 <?php
 require 'dist/database.php';
 
-if(isset($_POST['confirm'])){
+if(isset($_POST['submit'])){
   $name = $_POST['username'];
   $email = $_POST['email'];
   $pass = $_POST['password'];
@@ -56,7 +56,7 @@ include 'components/header_form.php';
   </div>
 <?php endif; ?>
 
-<button class="d-block w-100 btn btn-primary mt-5 mb-3" type="submit" name="confirm">
+<button class="d-block w-100 btn btn-primary mt-5 mb-3" type="submit" name="submit">
   Login
 </button>
 
