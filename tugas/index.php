@@ -1,7 +1,16 @@
 <?php 
   require __DIR__.'/../dist/database.php';
   
-  $getTasks = mysqli_query($conn, "SELECT * FROM task ORDER BY date_created desc");
+  $author = $_SESSION['id'];
+
+  $getTasks = mysqli_query($conn, 
+    "SELECT *, (
+      SELECT 1
+      FROM submission AS t
+      WHERE t.task = v.id
+        AND t.author = $author
+    ) AS is_done
+  FROM task AS v ORDER BY date_created DESC");
 
   $sortedTasks = [];
   while($item = mysqli_fetch_assoc($getTasks)){ 
@@ -46,7 +55,11 @@
             <h3 class="fs-3 border-exam-side mb-1 py-2"><?= $category ?></h4>
           <?php endif; ?>
           <?php $y=0; foreach ($tasks as $task): $author = get_user($conn, 'id', $task['author']); ?>
-            <a class="d-block text-dark hover-basic p-3 border <?= $y != 0 ? 'border-top-0' : '' ?> text-decoration-none" href="/tugas/detail.php?q=<?= $task['id'] ?>">
+            <a href="/tugas/detail.php?q=<?= $task['id'] ?>"
+                class="d-block text-dark hover-basic p-3 border text-decoration-none
+                  <?= $y != 0 ? 'border-top-0' : '' ?> 
+                  <?= $task['is_done'] == 1 ? 'bg-green-lt' : '' ?>
+            ">
               <h4 class="fs-5 fw-bold mb-2"><?= $task['title'] ?></h4>
               <div class="mb-2">
                 <small class="d-block text-muted">Pengajar: <?= $author['name'] ?></small>

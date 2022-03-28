@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
   <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+  <link rel="icon" type="image/x-icon" href="/assets/image/favicon.png">
   <script src="/assets/js/bootstrap.js"></script>  
   <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>    
   <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
@@ -27,18 +28,21 @@
 </head>
 <body>
   <div class="expand" id="wrapper">  
-    <header class="navbar navbar-dark bg-exam border-thick shadow-sm position-fixed w-100 d-md-none" style="height: 59px; z-index: 150;">
+    <header class="navbar navbar-dark bg-exam border-thick shadow-sm position-fixed w-100 d-md-none" style="z-index: 150;">
       <div class="container-fluid">
         <button class="navbar-toggler border border-white" style="z-index: 200;" type="button" onclick="sidebarToggle()">
           <span class="navbar-toggler-icon"></span>
-        </button>      
+        </button>
+        <a href="/" class="text-decoration-none mb-0 text-light mobile-logo">
+          <img src="<?= '/assets/image/logo.png' ?>" alt="logo" height="60">
+        </a>
       </div>
     </header>
 
     <aside class="sidebar d-flex flex-column">
       <div class="position-relative d-flex bg-exam border-thick overflow-hidden">
-        <a href="/" class="text-decoration-none h4 mb-0 text-light p-3">
-          Contoh
+        <a href="/" class="text-decoration-none mb-0 text-light p-2 desktop-logo">
+          <img src="<?= '/assets/image/logo.png' ?>" alt="logo" height="60">
         </a>
         <div class="position-absolute d-flex align-items-center end-0 px-3 h-100" style="z-index: 10; background-color: rgb(71, 197, 255);">
           <button class="btn btn-outline-light d-block ms-auto py-0 px-1" onclick="sidebarToggle()" id="sidebarAngleBtn">

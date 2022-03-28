@@ -18,6 +18,9 @@ body{
 .bg-dark-lt{
   background-color: rgba(55, 55, 55, 0.3);
 }
+.bg-green-lt{
+  background-color: rgba(100, 220, 90, 0.3);
+}
 .border-exam-side{
   border-left: 4px solid rgb(71, 197, 255);  
   padding-left: 10px;
@@ -71,6 +74,9 @@ body{
   background-color: rgba(55, 55, 55, 0.9);
   transition: width .4s;
   white-space: nowrap;  
+}
+.desktop-logo{
+  display: none;
 }
 .sidenav{
   overflow: hidden;
@@ -134,7 +140,12 @@ body{
   /* Sidebar */
   .sidebar{  
     width: 350px;
-    background-color: rgba(55, 55, 55, 0.6);
+  }
+  .desktop-logo{
+    display: block;
+  }
+  .mobile-logo{
+    display: block;
   }
   .sidenav .icon{
     margin-right: 0;

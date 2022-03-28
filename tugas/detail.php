@@ -28,7 +28,7 @@
   $getTask = mysqli_query($conn, "SELECT * FROM task WHERE id = $taskId");
   $task = mysqli_fetch_assoc($getTask);
 
-  $getSubmis = mysqli_query($conn, "SELECT * FROM submission WHERE task = $taskId");
+  $getSubmis = mysqli_query($conn, "SELECT * FROM submission WHERE task = $taskId AND author = $author");
   $submis = mysqli_fetch_assoc($getSubmis);
 
   $pageTitle = $task['title'];
@@ -179,6 +179,7 @@
     </div>
   </div>
 </div>
+
 
 
 <?php include '../components/footer.php'; ?>  
