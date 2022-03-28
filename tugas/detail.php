@@ -12,7 +12,7 @@
   $attachment = $_POST['attId'] ?? '';
 
   if(isset($_POST['submit'])){    
-    mysqli_query($conn, "INSERT INTO submission(id, task, author, note, attachment, date_created)
+    mysqli_query($conn, "INSERT INTO submission(id, task, author, note, attachments, date_created)
       VALUES(null, $task, $author, '$note', '$attachment', '$now')
     ");
 
@@ -92,7 +92,7 @@
         <div class="row pb-5">
           <?php if($task['body'] != null): ?>
             <div class="col-12 col-md-7 col-lg-8 mb-4">
-              <?= $task['body'] ?>
+              <?= nl2br($task['body']) ?>
             </div>
           <?php endif; ?>
 
