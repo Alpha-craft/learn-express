@@ -34,8 +34,7 @@
 <script>
   function fileUploader(){
     return {
-      uploadFile() {
-        let notyf = new Notyf();
+      uploadFile() {        
         let files = document.getElementById("uploadFiles").files;
 
         if (files.length > 0){

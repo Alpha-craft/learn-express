@@ -26,6 +26,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
   <script defer src="/assets/js/alpine.js"></script>
+  <script>
+    var notyf = new Notyf();
+  </script>
   <title><?= $pageTitle ?? 'Home' ?> | E-Muhajirin</title>
 </head>
 <body>
@@ -76,7 +79,7 @@
           <?php endforeach; ?>
         <?php endforeach; ?>
       </div>
-      <div class="position-relative mt-auto border-top border-light" x-data="{ open: false }"> 
+      <div class="position-relative mt-auto border-top border-light overflow-hidden" x-data="{ open: false }"> 
         <div class="sidenav d-flex align-items-center cursor-pointer text-light px-3" style="height: 76px;" x-on:click="open = true">
           <div class="icon">
             <i class="las la-user-circle"></i>
