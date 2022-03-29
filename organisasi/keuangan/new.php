@@ -11,15 +11,12 @@
     $author = $_SESSION['id'];
     $newCash = ($main['cash'] + $in) - $out;
 
-    if($cashDate == 1){
+    if($cashDate != ''){
       mysqli_query($conn, "INSERT INTO cash(id, cash_date, cash_in, cash_out, in_description, out_description, author, date_created)
         VALUES(null, '$cashDate', $in, $out, '$inDesc', '$outDesc', $author, '$now')
       ");
 
       mysqli_query($conn, "UPDATE main SET cash = $newCash WHERE id = 1");
-    } else{
-      echo "<script>notyf.error('Mohon sertakan tanggal')</script>";
-
     }
   }
 
@@ -30,9 +27,6 @@
 <div class="text-center mb-4">
   <h3>Keuangan Masjid</h1>
 </div>
-
-<?php echo mysqli_error($conn); print_r($cashDate); ?>
-
 
 <?php if(!in_array('bendahara', $currUserRoles)): ?>
   <?php 
@@ -89,7 +83,7 @@
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" name="submit" class="btn btn-primary text-white">Simpan</button>
+                <button type="submit" name="submit" class="btn btn-primary text-white">Konfirmasi</button>
               </div>
             </div>
           </div>
@@ -132,7 +126,7 @@
             <textarea class="form-control" id="outDesc" rows="3"></textarea>
           </div>
 
-          <button type="button" class="btn btn-primary d-block w-100 mt-5" data-bs-toggle="modal" data-bs-target="#modal" x-on:click="getModal()">
+          <button type="button" class="btn btn-primary d-block w-100 mt-5" x-on:click="getModal()">
             Submit
           </button>
         </div>                
@@ -167,18 +161,27 @@
           elem.value = formater.format(val);
         },
         getModal(){
-          let saldo = <?= $main['cash'] ?? 'null' ?>;
-          let cin = document.getElementById('cashIn').value == '' ? 0 : document.getElementById('cashIn').value.replaceAll('.', '');
-          let cout = document.getElementById('cashOut').value == '' ? 0 : document.getElementById('cashOut').value.replaceAll('.', '');       
+          if(document.getElementById('date').value != ''){
+            let saldo = <?= $main['cash'] ?? 'null' ?>;
+            let cin = document.getElementById('cashIn').value == '' ? 0 : document.getElementById('cashIn').value.replaceAll('.', '');
+            let cout = document.getElementById('cashOut').value == '' ? 0 : document.getElementById('cashOut').value.replaceAll('.', '');       
 
-          this.modalCurrCash = saldo;
-          this.modalDatetime = document.getElementById('date').value;
-          this.modalIn = cin;
-          this.modalOut = cout;
-          this.modalInDesc = document.getElementById('inDesc').value;
-          this.modalOutDesc = document.getElementById('outDesc').value;
+            this.modalCurrCash = saldo;
+            this.modalDatetime = document.getElementById('date').value;
+            this.modalIn = cin;
+            this.modalOut = cout;
+            this.modalInDesc = document.getElementById('inDesc').value;
+            this.modalOutDesc = document.getElementById('outDesc').value;
 
-          this.modalTotal = this.formater.format((saldo + parseInt(cin)) - parseInt(cout));
+            this.modalTotal = this.formater.format((saldo + parseInt(cin)) - parseInt(cout));
+          } else{
+            let modal = bootstrap.Modal.getInstance(document.getElementById('modal'))
+            modal.show();
+
+            let notyf = new Notyf();
+            notyf.error('Mohon sertakan tanggal');
+
+          }   
         }
       }
     }
