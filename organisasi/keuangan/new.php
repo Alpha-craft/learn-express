@@ -28,7 +28,29 @@
             </div>
 
             <div class="modal-body">
-              <div></div>
+              <form action="">              
+                <div>
+                  Hari/Tanggal: <span x-text="modalDatetime"></span>
+                </div>              
+
+                <div>
+                  Pemasukan: <span x-text="modalIn"></span>
+                </div>  
+                <div>
+                  Pengeluaran: <span x-text="modalOut"></span>
+                </div>  
+
+                <div>
+                  Rincian Pemasukan: <span x-text="modalInDesc"></span>
+                </div>  
+                <div>
+                  Rincian Pengeluaran: <span x-text="modalOutDesc"></span>
+                </div>  
+
+                <div>
+                  Total: <span x-text="modalTotal"></span>
+                </div>
+              </form>
             </div>
 
             <div class="modal-footer">
@@ -52,7 +74,7 @@
               <label class="form-label">Pemasukan</label>
               <div class="input-group">
                 <span class="input-group-text text-white bg-primary">Rp</span>
-                <input type="text" class="form-control" id="cashIn" placeholder="00000">
+                <input type="text" class="form-control" id="cashIn" x-on:input="formatCash($el)" placeholder="00000">
               </div>            
             </div>
 
@@ -60,8 +82,8 @@
               <label class="form-label">Pengeluaran</label>
               <div class="input-group">
                 <span class="input-group-text text-white bg-primary">Rp</span>
-                <input type="text" class="form-control" id="cashOut" placeholder="00000">
-              </div>            
+                <input type="text" class="form-control" id="cashOut" x-on:input="formatCash($el)" placeholder="00000">
+              </div>
             </div>
           </div>
 
@@ -75,7 +97,7 @@
             <textarea class="form-control" id="outDesc" rows="3"></textarea>
           </div>
 
-          <button type="button" class="btn btn-primary d-block w-100 mt-5" data-bs-toggle="modal" data-bs-target="#modal">
+          <button type="button" class="btn btn-primary d-block w-100 mt-5" data-bs-toggle="modal" data-bs-target="#modal" x-on:click="getModal()">
             Submit
           </button>
         </div>                
@@ -95,7 +117,29 @@
 
     function cashManager(){
       return {
-        
+        modalDatetime: '',
+        modalIn: '',
+        modalOut: '',
+        modalInDesc: '',
+        modalOutDesc: '',
+        modalTotal: '',
+        formatCash(elem){  
+          let val = elem.value.replaceAll(/\D/gm, '');
+          let formater = new Intl.NumberFormat('id-ID', {});
+
+          elem.value = formater.format(val);
+        },
+        getModal(){
+          let formater = new Intl.NumberFormat('id-ID', {format: 'currency', currency: 'IDR'});
+
+          this.modalDatetime = document.getElementById('date').value;
+          this.modalIn = document.getElementById('cashIn').value.replaceAll(',', '');
+          this.modalOut = document.getElementById('cashOut').value.replaceAll(',', '');
+          this.modalInDesc = document.getElementById('inDesc').value;
+          this.modalOutDesc = document.getElementById('outDesc').value;
+
+          this.modalTotal = formater.format(parseInt(this.modalIn) - parseInt(this.modalOut));
+        }
       }
     }
   </script>
