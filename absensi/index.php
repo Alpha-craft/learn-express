@@ -48,47 +48,60 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn showBtn text-white">OK</button>
+        <button type="button" class="btn btn-primary showBtn text-white">OK</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="text-center mb-4">
-  <h3>Keuangan Masjid</h1>
+
+<div class="m-4">
+  <h3>Daftar Siswa</h1>
 </div>
       
 <div class="card mb-4">
   <div class="card-body">
-    <div class="d-flex justify-content-between">
-      <div>
-        <div>Hari ini 08:35</div>
-        <div>Hari ini 08:40</div>
-        <div>Hari ini 08:55</div>
+    <!-- looping start here -->
+    <?php for($i=0;$i<4;$i++): ?>
+    <div class="row mb-3">
+      <div class="col-auto">
+        <img style="height: 50px; width:auto;" class="object-fit rounded-circle" src="https://images-ext-1.discordapp.net/external/e52z5nIbaakJ-6ahNta-YLkMuZHLONZFNUt4zA8h4JQ/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/790416033471004702/9aa9b8a461d72950f4c9594714bf430c.webp" alt="">
       </div>
-      <div>
-        <div>User1 menyatakan hadir</div>
-        <div>User2 menyatakan hadir</div>
-        <div>User3 menyatakan izin sakit panas</div>
+      <div class="col">
+        <small class="d-block fw-bold">
+          Ainur
+        </small>
+        <small class="d-block">
+          Bianka ICHIBAN KAWAII
+        </small>
       </div>
     </div>
-    <button type="button" class="showBtn text-white btn btn-sm m-3 mt-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Lihat absensi
-    </button> 
+    <?php endfor; ?>
+    <!-- looping end here -->
   </div>       
 </div>    
-
 
 <div class="position-relative overflow-hidden">
   <div class="swiper">
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
       <!-- Slides -->
-      <?php for($i=0; $i < 5; $i++): ?>
+      <?php for($i=0; $i < 6; $i++): ?>
         <div class="swiper-slide">
           <div class="card">
             <div class="card-body">
-              
+              <div class="card-title text-center">
+                <h4>Mapel:<?=$i?></h4>
+                <h5>08:00-09:<?=$i?>0</h5>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <a class="btn btn-primary w-100 m-auto mb-2" href="">Hadir</a>
+                </div>
+                <div class="col-12">
+                  <a class="btn btn-secondary w-100 m-auto" href="">Izin</a>
+                </div>
+              </div>
             </div>
           </div>          
         </div>
@@ -101,6 +114,33 @@
   </div>
 </div>
   
+<div class="m-4">
+  <h3>History Absensi</h1>
+</div>
+      
+<div class="card mb-4">
+  <div class="card-body">
+    <!-- looping start here -->
+    <div class="row">
+      <div class="col-3 col-md-6">Hari ini 08:50</div>
+      <div class="col-9 col-md-6">User1 menyatakan Hadir</div>
+    </div>
+    <div class="row">
+      <div class="col-3 col-md-6">Hari ini 08:50</div>
+      <div class="col-9 col-md-6">User1 menyatakan Hadir</div>
+    </div>
+    <div class="row">
+      <div class="col-3 col-md-6">Hari ini 08:50</div>
+      <div class="col-9 col-md-6">User1 menyatakan Hadir</div>
+    </div>
+    <!-- looping end here -->
+    <button type="button" class="showBtn text-white btn btn-primary col-12 col-md-3 btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Lihat absensi
+    </button> 
+  </div>       
+</div>    
+
+
 
 
 <script type="module">
@@ -110,6 +150,8 @@
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
+    slidesPerView: 3,
+    spaceBetween: 30,
   });
 </script>
 

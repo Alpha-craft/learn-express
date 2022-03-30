@@ -5,8 +5,8 @@
 
   $conn = mysqli_connect(
     "localhost", 
-    "root", 
-    "", 
+    "ainur", 
+    "ainur", 
     "ramadhan_karim"
   );
 
