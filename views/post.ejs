@@ -1,1 +1,12 @@
-<%= jumlah %>
+<h2> <u>Add your note</u></h2>
+<form>
+	<div class="form-group">
+		<label for="paperInputs1">Note Title</label>
+		<input type="text" placeholder="Title" name="noteTitle" id="paperInputs1">
+	</div>
+	<div class="form-group">
+		<label for="large-input">Note</label>
+		<textarea name="noteContent" id="large-input" placeholder="Note"></textarea>
+	</div>
+	<button onclick="submitForm()" class="paper-btn  btn-primary" id="btn-submit" type="submit" name="submit">Add note</button>
+</form>

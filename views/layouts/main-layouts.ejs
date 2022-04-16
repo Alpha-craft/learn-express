@@ -4,21 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <script src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.3/dist/paper.min.css">
     <title>LKS|<%= title %></title>
 </head>
 <body>
-    <nav class="navbar navbar-light">
-        <div class="container-fluid">
-            <ul class="nav-link">
-                tems
-            </ul>
+    <nav class="border fixed split-nav">
+        <div class="nav-brand">
+          <h3><a href="#">Ainur-note</a></h3>
         </div>
-    </nav>
-    <div class="container">
+        <div class="collapsible">
+          <input id="collapsible1" type="checkbox" name="collapsible1">
+          <label for="collapsible1">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </label>
+          <div class="collapsible-body">
+            <ul class="inline">
+              <li><a href="/post">Post</a></li>
+              <li><a href="/note">Notes</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="paper container">
         <%- body %>
     </div>
 
+    <script>
+        function submitForm() {
+         // Get the first form with the name
+         // Hopefully there is only one, but there are more, select the correct index
+         var frm = document.getElementsByName('btn-submit')[0];
+         frm.submit(); // Submit
+         frm.reset();  // Reset
+         return false; // Prevent page refresh
+      }
+      </script>
 </body>
 </html>

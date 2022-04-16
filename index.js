@@ -2,12 +2,13 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const expressLayout = require('express-ejs-layouts');
+const fs = require("fs");
+
 
 
 //menggunakan EJS
 app.set('view engine','ejs');
 
-app.use(express.static(path.join(__dirname,'bootstrap')))
 app.use(expressLayout)
 
 app.get('/', (req, res) => {
@@ -16,12 +17,26 @@ app.get('/', (req, res) => {
 
 
 app.get('/post',(req,res) => {
-  let jumlah = req.query.jumlah
-  // res.send("ini adalah halaman post")
+  let fileBuffer = fs.readFileSync('data/note.json');
+  const noteObject = JSON.parse(fileBuffer);
+  let submitButton = req.query.submit;
+  if(submitButton != null){
+
+    let noteTitle = req.query.noteTitle;
+    let noteContent = req.query.noteContent;
+    let data = {
+      title:noteTitle,
+      content:noteContent
+    };
+    noteObject.push(data)
+    fs.writeFileSync("data/note.json",JSON.stringify(noteObject));
+    console.log("Done writting")
+    console.log(noteObject)
+  }
   res.render('post',{
-    jumlah:jumlah,
     title:'ini adalah halaman post',
-    layout:'layouts/main-layouts'
+    layout:'layouts/main-layouts',
+    data:noteObject
   });
 })
 
@@ -58,6 +73,7 @@ app.get('/home',(req,res)=>{
     layout:'layouts/main-layouts',
     title:'ini adalah home'
   });
+  // res.json(dataSiswa)
 })
 
 app.get('/post/:id/:cat',(req,res ) => {
@@ -78,13 +94,24 @@ app.get('/api',(req,res)=>{
   });
 })
 
+app.get('/note',(req,res)=>{
+  let file = fs.readFileSync('data/note.json')
+  let noteObj = JSON.parse(file);
+  console.log(noteObj);
+  res.render('note',{
+    noteData:noteObj,
+    title:'Note',
+    layout:'layouts/main-layouts'
+  })
+})
+
 // anggap saja error handler
 app.use('/',(req,res) => {
   res.status(404)
   res.send("Halaman tidak ada")
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
   // console.log(app);

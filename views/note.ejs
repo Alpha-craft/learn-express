@@ -1,0 +1,18 @@
+<h2><u>List note</u></h2>
+<div class="row flex-spaces">
+  <% noteData.forEach(data => { %> 
+    <div style="margin-bottom: 2.5rem;" >
+      <div class="card" style="width: 20rem;">
+        <div class="card-body">
+          <h4 class="card-title"> <%= data.title  %>  </h4>
+          <h5 class="card-subtitle">Nice looking subtitle.</h5>
+          <p class="card-text">
+            <%= data.content  %>
+          </p>
+          <a class="card-link" href="#">Dummy</a>
+          <a class="card-link" href="#">Dummy</a>
+        </div>
+      </div>
+    </div>
+    <% }) %> 
+</div>
